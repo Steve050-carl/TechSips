@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TechSips</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="card">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button class="btn" onclick="login()">Login</button>
+</section>
+
+<script>
+  const users = [
+    { username: "admin", password: "admin123", role: "admin" },
+    { username: "staff", password: "staff123", role: "staff" }
+  ];
+
+  function login() {
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("password").value;
+
+    const user = users.find(x => x.username === u && x.password === p);
+    if (!user) return alert("Invalid credentials");
+
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+    window.location.href = "dashboard.html";
+  }
+
+  // Redirect if already logged in
+  const loggedIn = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (loggedIn) window.location.href = "dashboard.html";
+</script>
+
+</body>
+</html>

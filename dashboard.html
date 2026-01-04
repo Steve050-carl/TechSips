@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TechSips Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!loggedInUser) {
+  window.location.href = "login.html";
+}
+</script>
+
+<h1>☕ Coffee Business Dashboard</h1>
+<p>Logged in as: <strong id="roleDisplay"></strong> (<a href="#" onclick="logout()">Logout</a>)</p>
+
+<!-- DAILY ENTRY -->
+<section class="card">
+  <h2>Daily Record Entry</h2>
+  <input type="number" id="sales" placeholder="Total Sales (KES)">
+  <input type="number" id="expenditure" placeholder="Total Expenditure (KES)">
+  <button class="btn" onclick="addRecord()">Save Record</button>
+</section>
+
+<!-- DAILY RECORDS TABLE -->
+<section class="card">
+  <h2>Daily Records</h2>
+  <table id="recordsTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Sales (KES)</th>
+        <th>Expenditure (KES)</th>
+        <th>Profit (KES)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <br>
+  <button class="btn" onclick="exportExcel()">Export to Excel</button>
+  <button class="btn btn-secondary" onclick="exportPDF()">Export to PDF</button>
+</section>
+
+<!-- MONTHLY DASHBOARD -->
+<section class="card">
+  <h2>Monthly Dashboard</h2>
+  <label>Select Month</label>
+  <select id="monthSelect" onchange="updateDashboard()"></select>
+
+  <div class="kpis">
+    <p>Total Sales: <strong>KES <span id="totalSales">0</span></strong></p>
+    <p>Total Expenditure: <strong>KES <span id="totalExpense">0</span></strong></p>
+    <p>Profit: <strong>KES <span id="profit">0</span></strong></p>
+  </div>
+
+  <canvas id="chart"></canvas>
+</section>
+
+<!-- WEEKLY SUMMARY -->
+<section class="card">
+  <h2>Weekly Summary</h2>
+  <table id="weeklyTable">
+    <thead>
+      <tr>
+        <th>Week Start</th>
+        <th>Week End</th>
+        <th>Total Sales</th>
+        <th>Total Expenditure</th>
+        <th>Profit</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
