@@ -192,7 +192,7 @@ function exportExcel() {
 function exportPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-  doc.text("Coffee Business Daily Records", 14, 15);
+  doc.text("TechSips Daily Records", 14, 15);
   const records = JSON.parse(localStorage.getItem("records")) || [];
   let y = 25;
   records.forEach(r => {
